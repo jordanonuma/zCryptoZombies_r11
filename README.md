@@ -1,1 +1,2 @@
-New lesson with zCryptoZombies_r11
+# zCryptoZombies_r11
+Twelfth round through the Solidity tutorial "(•◡•)/" ╚(•⌂•)╝
