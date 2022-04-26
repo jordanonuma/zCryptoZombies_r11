@@ -34,6 +34,6 @@ contract ZombieFactory is Ownable {
     function createRandomZombie(string memory _name) public {
         require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
-        _createZombie(_name, randDna);
+        _createZombie(_name, randDna); //'randDna' will have feed into the variable 'newDna' in ZombieFeeding{}
     } //end function createRandomZombie()
 } //end contract ZombieFactory{}
