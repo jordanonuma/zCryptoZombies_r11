@@ -16,7 +16,7 @@ contract KittyInterface {
         ); //end function getKitty()
 } //end contract KittyInterface{}
 
-contract ZombieFeeding is ZombieFactory {
+contract ZombieFeeding is ZombieFactory {   
 
     KittyInterface kittyContract;
 
@@ -53,4 +53,8 @@ contract ZombieFeeding is ZombieFactory {
         (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
         feedAndMultiply(_zombieId, kittyDna, "kitty");
     } //end function feedOnKitty()
+
+    function getZombiesByOwner(address _owner) external view returns(uint memory){
+
+    } //end function getZombiesByOwner()
 } //end contract ZombieFeeding{}
