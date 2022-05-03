@@ -54,7 +54,4 @@ contract ZombieFeeding is ZombieFactory {
         feedAndMultiply(_zombieId, kittyDna, "kitty");
     } //end function feedOnKitty()
 
-    function getZombiesByOwner(address _owner) external view returns(uint memory){
-
-    } //end function getZombiesByOwner()
 } //end contract ZombieFeeding{}
