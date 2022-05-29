@@ -9,6 +9,11 @@
     </head>
     <body>
         <script >
+            var cryptoZombies;
+            function startApp() {
+                var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
+                var cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+            }
             window.addEventListener('load', function() {
 
             // Checking if Web3 has been injected by the browser (Mist/MetaMask)
