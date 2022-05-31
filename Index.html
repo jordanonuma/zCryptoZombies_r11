@@ -10,9 +10,19 @@
     <body>
         <script >
             var cryptoZombies;
+            var userAccount;
+
             function startApp() {
                 var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
                 cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+                var accountInterval = setInterval(function() {
+                    // Check if account has changed
+                    if (web3.eth.accounts[0] !== userAccount) {
+                        userAccount = web3.eth.accounts[0];
+                        // Call some function to update the UI with the new account
+                        getZombiesByOwner(userAccount);
+                    } .then(displayZombies);
+                }, 100);
             } //end function startApp()
 
             function getZombieDetails(id) {
@@ -20,7 +30,7 @@
             } //end function getZombieDetails()
 
             function zombieToOwner(id) {
-                return cryptoZombies.methods.zombieTowner(id).call()
+                return cryptoZombies.methods.zombieToOwner(id).call()
             } //end function zombieToOwner()
 
             function getZombiesByOwner(owner) {
