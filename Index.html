@@ -80,6 +80,19 @@
                 });
             } //end function feedOnKitty()
 
+            function levelUp(zombieId) {
+                $("#txStatus").text("Leveling up your zombie...");
+                return cryptoZombies.methods.feedOnKitty(zombieId, kittyId)
+                .send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") })
+                .on("receipt", function(receipt) {
+                $("#txStatus").text("Power overwhelming! Zombie successfully leveled up");
+                //getZombiesByOwner(userAccount).then(displayZombies);
+                })
+                .on("error", function(error) {
+                $("#txStatus").text(error);
+                });
+            } //end function levelUp()
+
             function getZombieDetails(id) {
                 return cryptoZombies.methods.zombies(id).call()
             } //end function getZombieDetails()
