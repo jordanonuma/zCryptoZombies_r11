@@ -1,4 +1,7 @@
 const CryptoZombies = artifacts.require(“CryptoZombies");
+const utils = require("./helpers/utils");
+const zombieNames = ["Zombie 1", "Zombie 2"];
+
 contract("CryptoZombies", (accounts) => {
     let [alice, bob] = accounts;
     let contractInstance;
@@ -15,6 +18,7 @@ contract("CryptoZombies", (accounts) => {
     }) //end it()
  
     it("should not allow two zombies", async () => {
-            
+        const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
+        await utils.shouldThrow(CryptoZombies.createRandomZombie());
     }) //end it()
 }) //end contract()
