@@ -24,10 +24,10 @@ contract("CryptoZombies", (accounts) => {
 
     context("with the single-step transfer scenario", async () => {
         it("should transfer a zombie", async () => {
-            await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
-            const zombieId = result.logs[0].args.name);
-            await contractInstance.transferFrom(alice, bob, {from: alice});
-            const newOwner = ownerOf(zombieId);
+            const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
+            const zombieId = result.logs[0].args.zombieId.toNumber();
+            await contractInstance.transferFrom(alice, bob, zombieId, {from: alice});
+            const newOwner = await contractInstance.ownerOf(zombieId);
             assert.equal(newOwner, bob);
           }) //end it()
     }) //end context()
