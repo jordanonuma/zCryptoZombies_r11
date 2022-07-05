@@ -17,8 +17,8 @@ contract("CryptoZombies", (accounts) => {
         const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
 
         expect(result.receipt.status).to.equal(true);
-        expect(zombieOwner).to.equal(alice);
-    }) //end it()
+        expect(result.logs[0].args.name).to.equal(zombieNames[0]);        
+        ) //end it()
  
     it("should not allow two zombies", async () => {
         await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
@@ -31,7 +31,7 @@ contract("CryptoZombies", (accounts) => {
             const zombieId = result.logs[0].args.zombieId.toNumber();
             await contractInstance.transferFrom(alice, bob, zombieId, {from: alice});
             const newOwner = await contractInstance.ownerOf(zombieId);
-            expect(zombieOwner).to.equal(bob);
+            expect(newOwner).to.equal(bob);
           }) //end it()
     }) //end context()
 
@@ -43,7 +43,7 @@ contract("CryptoZombies", (accounts) => {
             await contractInstance.approve(bob, zombieId, {from: alice});
             await contractInstance.transferFrom(alice, bob, zombieId, {from: bob});
             const newOwner = await contractInstance.ownerOf(zombieId);
-            expect(zombieOwner).to.equal(bob);
+            expect(newOwner).to.equal(bob);
         }) //end it()
 
         it("should approve and then transfer a zombie when the owner calls transferFrom", async () => {
@@ -52,7 +52,7 @@ contract("CryptoZombies", (accounts) => {
             await contractInstance.approve(bob, zombieId, {from: alice});
             await contractInstance.transferFrom(alice, bob, zombieId, {from: bob});
             const newOwner = await contractInstance.ownerOf(zombieId);
-            expect(zombieOwner).to.equal(bob);
+            expect(newOwner).to.equal(bob);
         }) //end it()
     }) //end context()
 
