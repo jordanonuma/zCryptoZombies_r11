@@ -14,21 +14,21 @@ async function getOracleContract(web3js) {
 } //end function getOracleContract()
 
 async function filterEvents(oracleContract, web3js) {
-    CryptoZombies.events.GetLatestEthPriceEvent(async (err, event) => {
+    oracleContract.events.GetLatestEthPriceEvent(async (err, event) => {
         if (err) {
             console.error('Error on event', err)
             return
         }
         
         await addRequestToQueue(event)
-    }) //end CryptoZombies.events.GetLatestEthPriceEvent()
+    }) //end oracleContract.events.GetLatestEthPriceEvent()
 
-    CryptoZombies.events.SetLatestEthPriceEvent(async (err, event) => {
+    oracleContract.events.SetLatestEthPriceEvent(async (err, event) => {
         if (err) {
             console.error('Error on event', err)
             return
         }
     
     
-    }) //end CryptoZombies.events.SetLatestEthPriceEvent()
+    }) //end oracleContract.events.SetLatestEthPriceEvent()
 } //end function filterEvents()
