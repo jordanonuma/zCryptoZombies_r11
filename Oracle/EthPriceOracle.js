@@ -12,3 +12,23 @@ async function getOracleContract(web3js) {
     const networkId = await web3js.eth.net.getId()
     return new web3js.eth.Contract(OracleJSON.abi, OracleJSON.networks[networkId].address)
 } //end function getOracleContract()
+
+async function filterEvents(oracleContract, web3js) {
+    CryptoZombies.events.GetLatestEthPriceEvent(async (err, event) => {
+        if (err) {
+            console.error('Error on event', err)
+            return
+        }
+        
+        await addRequestToQueue(event)
+    }) //end CryptoZombies.events.GetLatestEthPriceEvent()
+
+    CryptoZombies.events.SetLatestEthPriceEvent(async (err, event) => {
+        if (err) {
+            console.error('Error on event', err)
+            return
+        }
+    
+    
+    }) //end CryptoZombies.events.SetLatestEthPriceEvent()
+} //end function filterEvents()
