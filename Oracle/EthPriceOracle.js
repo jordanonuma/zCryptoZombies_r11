@@ -57,10 +57,24 @@ async function processRequest(oracleContract, ownerAddress, id, callerAddress) {
             return 
         } catch (error) {
             if(retries === MAX_RETRIES - 1) {
-                await setLatestEthPrice(oracleContract, callerAddress, ownerAddress, 0, id)
+                await setLatestEthPrice(oracleContract, callerAddress, ownerAddress, '0', id)
                 return
             } //end if()
             retries++
         } //end try-catch{}
     } //end while()
 } //end function processRequest()
+
+async function setLatestEthPrice (oracleContract, callerAddress, ownerAddress, ethPrice, id) {
+    ethPrice = ethPrice.replace('.'.'')
+    const multiplier = new BN(multiplier,10)
+    
+    const ethPriceInt = (new BN(parseInt(ethPrice), 10)).mul(multiplier)
+    const idInt = new BN(parseInt(id))
+    try {
+        await oracleContract.methods.setLatestEthPrice(ethPriceInt.toString(), callerAddress, idInt.toString()).send({ from: ownerAddress })
+    } catch (error) {
+        console.log('Error encountered while calling setLatestEthPrice.')
+        // Do some error handling
+    } //end try-catch{}
+} //end function setLatestEthPrice()
