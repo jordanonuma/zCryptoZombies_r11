@@ -96,3 +96,17 @@ async function init () {
     filterEvents(oracleContract, web3js)
     return { oracleContract, ownerAddress, client }
 } //end function init()
+
+(async () => {
+    const { oracleContract, ownerAddress, client } = await init()
+    process.on( 'SIGINT', () => {
+      console.log('Calling client.disconnect()')
+      // 1. Execute client.disconnect
+
+      process.exit( )
+    })
+    setInterval(async () => {
+      // 2. Run processQueue
+      
+    }, SLEEP_INTERVAL)
+})()
