@@ -6,9 +6,9 @@ import "./Roles.sol";
 contract EthPriceOracle {
     using Roles for Roles.Role;
 
-    Roles.Role private owners;
+    Roles.Role private owners; //contract owner
     Roles.Role private oracles;
-    
+
     uint private randNonce = 0;
     uint private modulus = 1000;
     mapping(uint256=>bool) pendingRequests;
