@@ -14,10 +14,15 @@ contract EthPriceOracle {
     mapping(uint256=>bool) pendingRequests;
     event GetLatestEthPriceEvent(address callerAddress, uint id);
     event SetLatestEthPriceEvent(uint256 ethPrice, address callerAddress);
+    event AddOracleEvent(address oracleAddress);
 
     constructor(address _owner) public { //modifier may be needed
         owners.add(_owner); //adds to owners() role--moving to next commit
     } //end costructor()
+
+    function addOracle(address _oracle) public {
+        require(owners.has(msg.sender), "Not an owner!");
+    } //end function addOracle()
 
     function getLatestEthPrice() public returns (uint256) {
         randNonce++;
