@@ -11,10 +11,13 @@ contract EthPriceOracle {
 
     uint private randNonce = 0;
     uint private modulus = 1000;
+    uint private numOracles = 0;
+
     mapping(uint256=>bool) pendingRequests;
     event GetLatestEthPriceEvent(address callerAddress, uint id);
     event SetLatestEthPriceEvent(uint256 ethPrice, address callerAddress);
     event AddOracleEvent(address oracleAddress);
+    event RemoveOracleEvent(address oracleAddress);
 
     constructor(address _owner) public { //modifier may be needed
         owners.add(_owner); //adds to owners() role--moving to next commit
@@ -26,6 +29,15 @@ contract EthPriceOracle {
         oracles.add(_oracle);
         emit AddOracleEvent(_oracle);
     } //end function addOracle()
+
+    function removeOracle (address _oracle) public {
+        require(owners.has(msg.sender), "Not an owner!");
+        require(oracles.has(_oracle), "Not an oracle!");
+        require(numOracles>1, "Do not remove the last oracle!");
+        oracles.remove(_oracle);
+        numOracles--;
+        emit RemoveOracleEvent(_oracle);
+    } //end function removeOracle()
 
     function getLatestEthPrice() public returns (uint256) {
         randNonce++;
