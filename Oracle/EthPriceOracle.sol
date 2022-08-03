@@ -12,6 +12,7 @@ contract EthPriceOracle {
     uint private randNonce = 0;
     uint private modulus = 1000;
     uint private numOracles = 0;
+    uint private THRESHOLD = 0;
 
     mapping(uint256=>bool) pendingRequests;
 
@@ -45,6 +46,12 @@ contract EthPriceOracle {
         numOracles--;
         emit RemoveOracleEvent(_oracle);
     } //end function removeOracle()
+
+    function setThreshold (uint _threshold) public {
+        require(owners.has(msg.sender), "Not an owner!");
+        THRESHOLD = _threshold;
+        emit SetThresholdEvent(THRESHOLD);
+    } //end function setThreshold()
 
     function getLatestEthPrice() public returns (uint256) {
         randNonce++;
