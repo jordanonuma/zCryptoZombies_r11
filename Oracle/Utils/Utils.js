@@ -8,3 +8,20 @@ async function getZkSyncProvider(zksync, networkName) {
     }
     return zkSyncProvider
 } //end function getZkSyncProvider()
+
+async function getEthereumProvider (ethers, networkName) {
+    let ethersProvider
+    try {
+      // eslint-disable-next-line new-cap
+      ethersProvider = new ethers.getDefaultProvider(networkName)
+    } catch (error) {
+      console.log('Could not connect to Rinkeby')
+      console.log(error)
+    }
+    return ethersProvider
+} //end getEthereumProvider()
+
+async function initAccount (rinkebyWallet, zkSyncProvider, zkSync) {
+    const zkSyncWallet = await zksync.Wallet.fromEthSigner(rinkebyWallet, zkSync)
+    return zkSyncWallet
+} //end initAccount()
