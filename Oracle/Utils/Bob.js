@@ -19,7 +19,8 @@
         process.exit()
       }) //end process.on()
     setInterval(async () => {
-        // Call the `utils.displayZkSyncBalance` function
+        await utils.displayZkSyncBalance(bobZkSyncWallet, ethers)
+
         console.log('---')
     }, SLEEP_INTERVAL) //end setInterval()
     
