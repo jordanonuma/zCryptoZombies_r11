@@ -19,6 +19,7 @@
     const aliceZkSyncWallet = await utils.initAccount(aliceRinkebyWallet, zkSyncProvider, zksync)
   
     console.log('Depositing') //Displays to customer deposit in process.
+
     
   
   })()
