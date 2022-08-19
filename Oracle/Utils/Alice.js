@@ -20,6 +20,8 @@
   
     console.log('Depositing') //Displays to customer deposit in process. Yessir.
 
-    
+    await utils.depositToZkSync(aliceZkSyncWallet, token, amountToDeposit, ethers)
+    await utils.displayZkSyncBalance(aliceZkSyncWallet, ethers)
+    await utils.registerAccount(aliceZkSyncWallet)    
   
   })()
