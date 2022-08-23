@@ -2,10 +2,10 @@
     const ethers = require('ethers')
     const zksync = require('zksync')
     const utils = require('./utils')
-    const token = 'ETH'
-    const amountToDeposit = '0.05'
-    const amountToTransfer = '0.02'
-    const amountToWithdraw = '0.002'
+    const token = 'USDT'
+    const amountToDeposit = '6.0'
+    const amountToTransfer = '2.0'
+    const amountToWithdraw = '2.0'
   
     const zkSyncProvider = await utils.getZkSyncProvider(zksync, process.env.NETWORK_NAME)
     const ethersProvider = await utils.getEthereumProvider(ethers, process.env.NETWORK_NAME)
@@ -29,6 +29,6 @@
     await utils.transfer(aliceZkSyncWallet, process.env.BOB_ADDRESS, amountToTransfer, transferFee, token, zksync, ethers)
 
     console.log('Withdrawing')
-    const withdrawalFee = utils.getFee('Withdraw', aliceRinkebyWallet.address, token, zkSyncProvider, ethers)
+    const withdrawalFee = await utils.getFee('Withdraw', aliceRinkebyWallet.address, token, zkSyncProvider, ethers)
     await utils.withdrawToEthereum(aliceZkSyncWallet, amountToWithdraw, withdrawalFee, token, zksync, ethers)
   })()
