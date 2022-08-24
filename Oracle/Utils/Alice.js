@@ -12,12 +12,15 @@
     console.log('Creating a new Rinkeby wallet for Alice')
     const aliceRinkebyWallet = new ethers.Wallet(process.env.ALICE_PRIVATE_KEY, ethersProvider) // Account #78
     console.log(`Alice's Rinkeby address is: ${aliceRinkebyWallet.address}`)
-    const aliceInitialRinkebyBalance = await aliceRinkebyWallet.getBalance()
+
     console.log(`Alice's initial balance on Rinkeby is: ${ethers.utils.formatEther(aliceInitialRinkebyBalance)}`)
   
     console.log('Creating a zkSync wallet for Alice')
-    const aliceZkSyncWallet = await utils.initAccount(aliceRinkebyWallet, zkSyncProvider, zksync)
-  
+
+    const tokenSet = zkSyncProvider.tokenSet;
+    //const aliceZkSyncWallet = await utils.initAccount(aliceRinkebyWallet, zkSyncProvider, zksync)
+    console.log(`Alice's initial balance on Rinkeby is: ${tokenSet.formatToken(token, aliceInitialRinkebyBalance)}`)
+
     console.log('Depositing') //Displays to customer deposit in process. Yessir.
 
     await utils.depositToZkSync(aliceZkSyncWallet, token, amountToDeposit, ethers)
