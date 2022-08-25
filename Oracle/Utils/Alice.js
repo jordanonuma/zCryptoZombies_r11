@@ -21,6 +21,8 @@
     const aliceInitialRinkebyBalance = await aliceZkSyncWallet.getEthereumBalance(token)
     console.log(`Alice's initial balance on Rinkeby is: ${tokenSet.formatToken(token, aliceInitialRinkebyBalance)}`)
 
+    await aliceZkSyncWallet.approveERC20TokenDeposits(token)
+    
     console.log('Depositing') //Displays to customer deposit in process. Yessir.
 
     await utils.depositToZkSync(aliceZkSyncWallet, token, amountToDeposit, ethers)
