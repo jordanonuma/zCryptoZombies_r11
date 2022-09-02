@@ -52,9 +52,9 @@ async function depositToZkSync (zkSyncWallet, token, amountToDeposit, tokenSet) 
     }
 } //end depositToZkSync()
 
-async function transfer (from, toAddress, amountToTransfer, transferFee, token, zksync, tokenSet) {
-    const closestPackableAmount = zksync.utils.closestPackableTransactionAmount(tokenSet.parseToken(amountToTransfer))
-    const closestPackableFee = zksync.utils.closestPackableTransactionFee(tokenSet.parseToken(transferFee))
+async function transfer (from, toAddress, amountToTransfer, transferFee, token, zksync, ethers) {
+    const closestPackableAmount = zksync.utils.closestPackableTransactionAmount(ethers.utils.parseEther(amountToTransfer))
+    const closestPackableFee = zksync.utils.closestPackableTransactionFee(ethers.utils.parseEther(transferFee))
     const transfer = await from.syncTransfer({
         to: toAddress,
         token: token,
@@ -66,9 +66,9 @@ async function transfer (from, toAddress, amountToTransfer, transferFee, token, 
     console.log(transferReceipt)
 } //end transfer()
 
-async function getFee (transactionType, address, token, zkSyncProvider, ethers) {
+async function getFee (transactionType, address, token, zkSyncProvider, tokenSet) {
     const feeInWei = await zkSyncProvider.getTransactionFee(transactionType, address, token) 
-    return ethers.utils.formatEther(feeInWei.totalFee.toString())
+    return tokenSet.formatToken(token, fee.totalFee())
 } //end getFee()
 
 async function withdrawToEthereum (wallet, amountToWithdraw, withdrawalFee, token, zksync, ethers) {
@@ -96,7 +96,7 @@ async function displayZkSyncBalance (wallet, tokenSet) {
         console.log(`Committed ${property} balance for ${wallet.address()}: ${tokenSet.formatToken(property, committedBalances[property])}`)
     } //end for()
 
-    for (const property in verifiedBAlances) {
+    for (const property in verifiedBalances) {
         console.log(`Verified ${property} balance for ${wallet.address()}: ${tokenSet.formatToken(property, verifiedBalances[property])}`)
     } //end for()
 
